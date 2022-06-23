@@ -1,0 +1,7 @@
+version: '3'
+services:
+  practice-app:
+    build: .
+    image: practice-app
+    container_name: practice-app
+    

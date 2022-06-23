@@ -1,0 +1,56 @@
+<div class="mt-5 w-50" *ngIf="isStatic == false && saveMode!=0">
+    <form [formGroup]="customerForm" (ngSubmit)="submitCustomerForm()">
+        <div class="form-group mt-2">
+            <label>Email</label>
+            <input type="email" class="form-control" name="email" formControlName="email">
+        </div>
+        <div class="form-group mt-2">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" formControlName="name">
+        </div>
+        <div class="form-group mt-2">
+            <label>Phone Number</label>
+            <input type="text" class="form-control" name="phoneNumber" formControlName="phoneNumber">
+        </div>
+        <button type="submit" class="btn btn-primary  mt-2">Submit</button>
+    </form>
+</div>
+
+<div class="w-50 mt-5">
+    
+    <div *ngIf="apiCalling == 1" class="d-flex justify-content-center pb-5" style="margin-top: 200px;">
+        <div class="spinner-grow text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="text-center"> <i style="cursor: pointer;" class="fa fa-plus" (click)="setForSave()"></i> </div>
+    <div class="row" *ngFor="let item of customers">
+        <div class="col-10">
+            <div class="card" >
+                <div class="card-body">
+                    <a [routerLink]="['/customer',item.name]">{{item.name}}</a>
+                    <!-- <a [routerLink]="['/department/people-details', member.type, department, member.departmentId, member.id]"></a> -->
+                    <h6>{{item.email}}</h6>
+                    <h6>{{item.phoneNumber}}</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-2 d-flex align-items-center" *ngIf="!isStatic">
+           <i style="cursor: pointer;" class="fa fa-edit" (click)="setForEdit(item)"></i> 
+           <i style="margin-left: 20%;cursor: pointer;" class="fa fa-trash" (click)="setForDelete(item.email)"></i>
+        </div>
+    </div>
+</div>
+
+<app-modal [id]="customerDeleteWarning">
+	<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title">Are you sure to delete</h5>
+			<button type="button" class="btn-close" (click)="closeModal()"></button>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-danger" (click)="deleteRequest()">Delete</button>
+			<button class="btn btn-primary" (click)="closeModal()">Cancel</button>
+		</div>
+	</div>
+</app-modal>
