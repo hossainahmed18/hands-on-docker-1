@@ -2,6 +2,6 @@ version: '3'
 services:
   practice-app:
     build: .
-    image: practice-app
+    image: junayedrensa/practice-app:practice-app
     container_name: practice-app
     
